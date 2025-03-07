@@ -53,6 +53,7 @@ dev_dependencies:
   path_provider:  
   before_after:  
   get:
+  shimmer: 
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

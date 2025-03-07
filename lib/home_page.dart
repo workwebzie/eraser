@@ -18,7 +18,10 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Get.back();
+                Get.back();
+              controller.imagePath.value = "";
+              controller.imagePicked.value=false;
+            
             },
             icon: Icon(
               Icons.home,
@@ -79,56 +82,84 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Center(
-                      child: Obx(() {
-                        if (controller.removed.value) {
-                          return Container(
-                            height: Get.height / 2,
-                            child: BeforeAfter(
-                              value: controller.value.value,
-                              after: Image.file(
-                                  File(controller.imagePath.value),
-                                  fit: BoxFit.cover),
-                              before: Screenshot(
-                                controller: controller.screenshotController,
-                                child: Image.memory(controller.image!,
-                                    fit: BoxFit.cover),
-                              ),
-                              direction: SliderDirection.horizontal,
-                              onValueChanged: (val) =>
-                                  controller.value.value = val,
-                            ),
-                          );
-                        }
+                  Stack(
+                    children: [
 
-                        return Container(
-                          height: Get.height / 2,
-                          child: Image.file(File(controller.imagePath.value),
-                              fit: BoxFit.cover),
-                        );
-                      }),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Obx(() {
+                            if (controller.removed.value) {
+                              return Container(
+                                height: Get.height / 2,
+                                child: BeforeAfter(
+                                  value: controller.value.value,
+                                  after: Image.file(
+                                      File(controller.imagePath.value),
+                                      fit: BoxFit.cover),
+                                  before: Screenshot(
+                                    controller: controller.screenshotController,
+                                    child: Image.memory(controller.image!,
+                                        fit: BoxFit.cover),
+                                  ),
+                                  direction: SliderDirection.horizontal,
+                                  onValueChanged: (val) =>
+                                      controller.value.value = val,
+                                ),
+                              );
+                            }
+                      
+                            return Container(
+                              height: Get.height / 2,
+                              child: Image.file(File(controller.imagePath.value),
+                                  fit: BoxFit.cover),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               )
             : Container(
-                child: Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(backgroundColor:
-                        WidgetStateProperty.resolveWith((state) {
-                      return Colors
-                          .blueGrey; // Or dynamically calculate based on state
-                    })),
-                    onPressed: controller.pickImage,
-                    child: const Text(
-                      "Pick Image",
-                      style: TextStyle(color: Colors.white),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          
+                          child: Image.asset("assets/images/pic1.png",fit: BoxFit.fill,)),
+                       Text("Eraser",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40),),
+                                 
+                        ElevatedButton(
+                          style: ButtonStyle(backgroundColor:
+                              WidgetStateProperty.resolveWith((state) {
+                            return Colors
+                                .blueGrey; // Or dynamically calculate based on state
+                          })),
+                          onPressed: controller.pickImage,
+                          child: const Text(
+                            "Upload Image",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        
+                    
+                           
+                    
+                      ],
                     ),
                   ),
-                ),
+                   Padding(
+                     padding: const EdgeInsets.only(bottom: 20),
+                     child: Text("Remove Image Background 100% freely",style: TextStyle( fontSize: 15 )),
+                   ),
+                ],
               ),
+            ),
       ),
       bottomNavigationBar: Container(
         color: Colors.transparent,

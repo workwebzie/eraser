@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'dart:io';
@@ -63,7 +64,7 @@ class BackgroundRemoverController extends GetxController {
           pixelRatio: 1.0,
         );
 
-        Get.snackbar( "Image Saved Succesfully","");
+        Get.snackbar( "","Image Saved Succesfully",colorText: Colors.white);
 
         print('File saved at: ${downloadsDirectory.path}/$fileName');
         image?.clear();
